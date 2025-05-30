@@ -17,8 +17,8 @@
 	- arguments 객체
 */
 
-function foo(arg, ...rest) {
-  console.log(rest);
+function foo(arg) {
+  console.log(arguments);
 }
 
 foo(1, 2, 3, 4);
