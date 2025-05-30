@@ -5,14 +5,20 @@
 	- 일급 객체는 동일 비교의 대상이 될 수 있다.(값으로 표현 가능)
 */
 
-const foo = function (arg) {
-  return arg;
-};
+// const foo = function (arg) {
+//   return arg;
+// };
 
-foo(1);
+// foo(1);
 
 /*
 	- 기본값 매개변수 default function parameter
 	- 나머지 매개변수 Rest parameter
 	- arguments 객체
 */
+
+function foo(arg = 1) {
+  console.log(arg);
+}
+
+foo();
