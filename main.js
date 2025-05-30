@@ -6,14 +6,14 @@
 */
 
 function foo(arg) {
-  arg();
+  return arg;
 }
 
 function bar() {
-  console.log('bar');
+  console.log('바');
 }
 
-foo(bar);
+foo(bar)();
 
 /*
 	- 기본값 매개변수 default function parameter
