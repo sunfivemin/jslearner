@@ -17,8 +17,21 @@
 	- arguments 객체
 */
 
-function foo(arg) {
-  console.log(arguments);
+// function foo(arg) {
+//   console.log(arguments);
+// }
+
+// foo(1, 2, 3, 4);
+
+/*
+  - 함수 선언문
+  - 함수 표현식
+  - Function 생성자 함수
+  - 화살표 함수 표현식
+*/
+
+function foo() {
+  console.log('foo');
 }
 
-foo(1, 2, 3, 4);
+foo();
