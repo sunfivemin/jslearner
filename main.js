@@ -30,8 +30,5 @@
   - 화살표 함수 표현식
 */
 
-const foo = function () {
-  console.log('foo2');
-};
-
+const foo = new Function("console.log('foo3')");
 foo();
