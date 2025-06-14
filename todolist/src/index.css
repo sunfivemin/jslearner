@@ -1,3 +1,4 @@
+/* ✅ 전체 레이아웃 박스 */
 .test {
   background-color: #f9f9f9;
   padding: 30px;
@@ -8,6 +9,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* ✅ 헤더 */
 .test h1 {
   color: #2c3e50;
   font-size: 28px;
@@ -18,17 +20,26 @@
   gap: 8px;
 }
 
-.test input {
+/* ✅ 입력 영역 (input + 버튼 묶음) */
+.input-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.input-group input[type='text'] {
+  flex: 1;
   padding: 10px 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 15px;
-  width: 70%;
-  margin-right: 10px;
   box-sizing: border-box;
+  min-width: 0;
 }
 
-.test button {
+.input-group button {
   background-color: #28a745;
   color: white;
   border: none;
@@ -37,14 +48,16 @@
   font-size: 15px;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  white-space: nowrap;
 }
 
-.test button:hover {
+.input-group button:hover {
   background-color: #218838;
 }
 
+/* ✅ 리스트 영역 */
 .test ul {
-  list-style-type: none;
+  list-style: none;
   padding: 0;
   margin-top: 20px;
 }
@@ -55,51 +68,87 @@
   padding: 10px 14px;
   border-radius: 4px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
+/* 완료된 항목 스타일 (취소선 + 흐린색) */
 .test ul li.completed {
   text-decoration: line-through;
   color: #aaa;
 }
-.test ul li button {
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
+
+/* ✅ 텍스트 + 체크박스 묶음 */
+.todo-text {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+/* 체크박스 */
+.test ul li input[type='checkbox'] {
+  margin-right: 10px;
+  transform: scale(1.2);
+  accent-color: #007bff;
+}
+
+/* ✅ 삭제 버튼 */
+.test ul li button.delete {
+  background-color: #dc3545;
+  color: white;
   border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
   cursor: pointer;
   margin-left: 10px;
   transition: background-color 0.2s ease;
 }
 
-.test ul li button.complete {
-  background-color: #007bff;
-  color: white;
-}
-.test ul li button.complete:hover {
-  background-color: #0069d9;
-}
-.test ul li button.complete:focus {
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
-  outline: none;
-}
-
-.test ul li button.delete {
-  background-color: #dc3545;
-  color: white;
-}
 .test ul li button.delete:hover {
   background-color: #c82333;
 }
+
 .test ul li button.delete:focus {
   box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.25);
   outline: none;
 }
 
-/* 공통 disabled 상태 */
+/* ✅ 비활성화 버튼 공통 스타일 */
 .test ul li button:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
   opacity: 0.6;
-  box-shadow: none;
+}
+
+/* ✅ 타이머 */
+.clock-container {
+  background-color: #282c34;
+  color: #ffffff;
+  padding: 40px 20px;
+  text-align: center;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  margin: 60px auto;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.clock-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #61dafb;
+}
+
+.clock-time {
+  font-size: 48px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.clock-date {
+  font-size: 20px;
+  opacity: 0.8;
 }
