@@ -1,4 +1,4 @@
-export interface ITesk {
+export interface ITask {
   taskId: string;
   taskName: string;
   taskDescription: string;
@@ -22,5 +22,5 @@ export interface IBoard {
 export interface IList {
   listId: string;
   listName: string;
-  tasks: ITesk[];
+  tasks: ITask[];
 }

@@ -51,7 +51,6 @@ export const appContainer = style({
   display: 'flex',
   flexDirection: 'column',
   height: '100vh',
-  width: '100vw',
   backgroundColor: 'var(--color-list)',
   fontFamily: 'var(--font-body)',
   color: 'var(--color-darkText)',
