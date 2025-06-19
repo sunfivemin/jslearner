@@ -1,3 +1,5 @@
+// src/components/BoardList/BoardList.tsx
+
 import React, { useState, type FC } from 'react';
 import { useTypedSelector } from '../../hooks/redux';
 import type { IBoard } from '../../types';
@@ -49,7 +51,8 @@ const BoardList: FC<TBoardListProps> = ({
           <FiPlusCircle
             size={24}
             style={{ cursor: 'pointer' }}
-            onClick={() => setIsFormOpen(!isFormOpen)}
+            onClick={() => setIsFormOpen(true)}
+            title="게시판 추가"
           />
         )}
       </div>

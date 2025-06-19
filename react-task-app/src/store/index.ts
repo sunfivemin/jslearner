@@ -1,8 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
-import reducer from './reducer/reducer';
+import { boardsReducer } from './slices/boardsSlice';
 
-const store = configureStore({
-  reducer: reducer,
+export const store = configureStore({
+  reducer: {
+    boards: boardsReducer,
+  },
+  devTools: process.env.NODE_ENV !== 'production', // 개발 모드에서만 DevTools 활성화
 });
 
 export type RootState = ReturnType<typeof store.getState>;
