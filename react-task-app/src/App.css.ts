@@ -1,6 +1,7 @@
 import { createGlobalTheme, style } from '@vanilla-extract/css';
 
-createGlobalTheme(':root', {
+// 글로벌 토큰 정의
+export const vars = createGlobalTheme(':root', {
   color: {
     main: '#3f51b5', // 인디고 (기본 메인 컬러)
     mainDarker: '#303f9f', // 더 짙은 인디고
@@ -45,6 +46,7 @@ createGlobalTheme(':root', {
   },
 });
 
+// 레이아웃 스타일 정의
 export const appContainer = style({
   display: 'flex',
   flexDirection: 'column',
@@ -107,9 +109,8 @@ export const buttons = style({
   fontWeight: 500,
   cursor: 'pointer',
   color: 'white',
-  transition: 'background-color 0.2s ease, transform 0.1s ease',
   backgroundColor: 'var(--color-updateButton)',
-
+  transition: 'background-color 0.2s ease, transform 0.1s ease',
   selectors: {
     '&:hover': {
       backgroundColor: 'var(--color-mainDarker)',
