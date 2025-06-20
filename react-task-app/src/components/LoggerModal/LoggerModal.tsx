@@ -31,7 +31,7 @@ const LoggerModal: FC<TLoggerModalProps> = ({ setLoggerOpen }) => {
         <div className={body}>
           {logs.length === 0
             ? '활동기록이 없습니다.'
-            : logs.map(log => <LogItem key={log.logId} />)}
+            : logs.map(log => <LogItem key={log.logId} logItem={log} />)}
         </div>
       </div>
     </div>

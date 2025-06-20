@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '../../App.css.ts';
 
 export const wrapper = style({
-  width: '100vw',
+  width: '90vw',
   height: '100vh',
   display: 'flex',
   justifyContent: 'center',
@@ -15,10 +15,12 @@ export const modalWindow = style({
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  width: '800px',
+  width: '100%',
+  maxWidth: '600px',
   height: 'max-content',
   maxHeight: '500px',
   overflowY: 'auto',
+  overflowX: 'hidden',
   backgroundColor: vars.color.mainDarker,
   opacity: 0.95,
   borderRadius: 14,
