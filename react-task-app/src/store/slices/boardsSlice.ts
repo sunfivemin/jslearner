@@ -1,9 +1,17 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { IBoard } from '../../types';
+import type { IBoard, IList, ITask } from '../../types';
 
-type TBoardState = {
+type TBoardsState = {
   modalActive: boolean;
   boardArray: IBoard[];
+};
+
+type TAddBoardAction = {
+  board: IBoard;
+};
+
+type TDeleteBoardAction = {
+  boardId: string;
 };
 
 type TDelecteAction = {
@@ -11,7 +19,33 @@ type TDelecteAction = {
   listId: string;
 };
 
-const initialState: TBoardState = {
+type TAddListAction = {
+  boardId: string;
+  list: IList;
+};
+
+type TAddTaskAction = {
+  boardId: string;
+  listId: string;
+  task: ITask;
+};
+
+type TDeleteTaskAction = {
+  boardId: string;
+  listId: string;
+  taskId: string;
+};
+
+type TSortAction = {
+  boardIndex: number;
+  droppableIdStart: string;
+  droppableIdEnd: string;
+  droppableIndexStart: number;
+  droppableIndexEnd: number;
+  draggableId: string;
+};
+
+const initialState: TBoardsState = {
   modalActive: false,
   boardArray: [
     {
@@ -71,9 +105,42 @@ const boardsSlice = createSlice({
   name: 'boards',
   initialState,
   reducers: {
-    addBoard: (state, { payload }: PayloadAction<{ board: IBoard }>) => {
+    addBoard: (state, { payload }: PayloadAction<TAddBoardAction>) => {
       state.boardArray.push(payload.board);
     },
+
+    deleteBoard: (state, { payload }: PayloadAction<TDeleteBoardAction>) => {
+      state.boardArray = state.boardArray.filter(
+        board => board.boardId !== payload.boardId
+      );
+    },
+
+    addList: (state, { payload }: PayloadAction<TAddListAction>) => {
+      state.boardArray.map(board =>
+        board.boardId === payload.boardId
+          ? { ...board, list: board.lists.push(payload.list) }
+          : board
+      );
+    },
+
+    addTask: (state, { payload }: PayloadAction<TAddTaskAction>) => {
+      state.boardArray.map(board =>
+        board.boardId === payload.boardId
+          ? {
+              ...board,
+              lists: board.lists.map(list =>
+                list.listId === payload.listId
+                  ? {
+                      ...list,
+                      tasks: list.tasks.push(payload.task),
+                    }
+                  : list
+              ),
+            }
+          : board
+      );
+    },
+
     deleteList: (state, { payload }: PayloadAction<TDelecteAction>) => {
       state.boardArray = state.boardArray.map(board =>
         board.boardId === payload.boardId
@@ -84,11 +151,95 @@ const boardsSlice = createSlice({
           : board
       );
     },
+
     setModalActive: (state, { payload }: PayloadAction<boolean>) => {
       state.modalActive = payload;
+    },
+
+    updateTake: (state, { payload }: PayloadAction<TAddTaskAction>) => {
+      state.boardArray = state.boardArray.map(board =>
+        board.boardId === payload.boardId
+          ? {
+              ...board,
+              lists: board.lists.map(list =>
+                list.listId === payload.listId
+                  ? {
+                      ...list,
+                      tasks: list.tasks.map(task =>
+                        task.taskId === payload.task.taskId
+                          ? payload.task
+                          : task
+                      ),
+                    }
+                  : list
+              ),
+            }
+          : board
+      );
+    },
+
+    deleteTake: (state, { payload }: PayloadAction<TDeleteTaskAction>) => {
+      state.boardArray = state.boardArray.map(board =>
+        board.boardId === payload.boardId
+          ? {
+              ...board,
+              lists: board.lists.map(list =>
+                list.listId === payload.listId
+                  ? {
+                      ...list,
+                      tasks: list.tasks.filter(
+                        task => task.taskId !== payload.taskId
+                      ),
+                    }
+                  : list
+              ),
+            }
+          : board
+      );
+    },
+
+    sort: (state, { payload }: PayloadAction<TSortAction>) => {
+      const board = state.boardArray[payload.boardIndex];
+
+      if (payload.droppableIdStart === payload.droppableIdEnd) {
+        // 같은 리스트 내 이동
+        const list = board.lists.find(
+          list => list.listId === payload.droppableIdStart
+        );
+        if (list) {
+          const dragged = list.tasks.splice(payload.droppableIndexStart, 1)[0];
+          list.tasks.splice(payload.droppableIndexEnd, 0, dragged);
+        }
+      } else {
+        // 다른 리스트 간 이동
+        const sourceList = board.lists.find(
+          list => list.listId === payload.droppableIdStart
+        );
+        const destList = board.lists.find(
+          list => list.listId === payload.droppableIdEnd
+        );
+
+        if (sourceList && destList) {
+          const dragged = sourceList.tasks.splice(
+            payload.droppableIndexStart,
+            1
+          )[0];
+          destList.tasks.splice(payload.droppableIndexEnd, 0, dragged);
+        }
+      }
     },
   },
 });
 
-export const { addBoard, deleteList, setModalActive } = boardsSlice.actions;
 export const boardsReducer = boardsSlice.reducer;
+export const {
+  addBoard,
+  deleteBoard,
+  deleteList,
+  setModalActive,
+  addTask,
+  addList,
+  updateTake,
+  deleteTake,
+  sort,
+} = boardsSlice.actions;
