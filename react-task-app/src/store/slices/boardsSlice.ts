@@ -156,7 +156,7 @@ const boardsSlice = createSlice({
       state.modalActive = payload;
     },
 
-    updateTake: (state, { payload }: PayloadAction<TAddTaskAction>) => {
+    updateTask: (state, { payload }: PayloadAction<TAddTaskAction>) => {
       state.boardArray = state.boardArray.map(board =>
         board.boardId === payload.boardId
           ? {
@@ -178,7 +178,7 @@ const boardsSlice = createSlice({
       );
     },
 
-    deleteTake: (state, { payload }: PayloadAction<TDeleteTaskAction>) => {
+    deleteTask: (state, { payload }: PayloadAction<TDeleteTaskAction>) => {
       state.boardArray = state.boardArray.map(board =>
         board.boardId === payload.boardId
           ? {
@@ -239,7 +239,7 @@ export const {
   setModalActive,
   addTask,
   addList,
-  updateTake,
-  deleteTake,
+  updateTask,
+  deleteTask,
   sort,
 } = boardsSlice.actions;
