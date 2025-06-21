@@ -1,14 +1,15 @@
 import { FiTrash } from 'react-icons/fi';
+import Task from '../Task/Task';
 import ActionButton from '../ActionButton/ActionButton';
 import type { IList, ITask } from '../../types';
 import { useTypedDispatch } from '../../hooks/redux';
-import type { FC } from 'react';
-import { deleteButton, header, listWrapper, names } from './List.css';
 import { deleteList, setModalActive } from '../../store/slices/boardsSlice';
 import { addLog } from '../../store/slices/loggerSlice';
 import { v4 } from 'uuid';
-import Task from '../Task/Task';
 import { setModalData } from '../../store/slices/modalSlice';
+import type { FC } from 'react';
+import { deleteButton, header, listWrapper, names } from './List.css';
+import { Droppable } from '@hello-pangea/dnd';
 
 type TListProps = {
   boardId: string;
@@ -36,31 +37,39 @@ const List: FC<TListProps> = ({ list, boardId }) => {
   };
 
   return (
-    <div className={listWrapper}>
-      <div className={header}>
-        <div className={names}>{list.listName}</div>
-        <FiTrash
-          className={deleteButton}
-          onClick={() => handleListDelete(list.listId)}
-        />
-      </div>
-      {list.tasks.map((task, index) => (
+    <Droppable droppableId={list.listId}>
+      {provided => (
         <div
-          onClick={() => handleTaskChange(boardId, list.listId, task)}
-          key={task.taskId}
+          className={listWrapper}
+          {...provided.droppableProps}
+          ref={provided.innerRef}
         >
-          <Task
-            id={task.taskId}
-            taskName={task.taskName}
-            taskDescription={task.taskDescription}
-            boardId={boardId}
-            index={index}
-          />
+          <div className={header}>
+            <div className={names}>{list.listName}</div>
+            <FiTrash
+              className={deleteButton}
+              onClick={() => handleListDelete(list.listId)}
+            />
+          </div>
+          {list.tasks.map((task, index) => (
+            <div
+              onClick={() => handleTaskChange(boardId, list.listId, task)}
+              key={task.taskId}
+            >
+              <Task
+                id={task.taskId}
+                taskName={task.taskName}
+                taskDescription={task.taskDescription}
+                boardId={boardId}
+                index={index}
+              />
+            </div>
+          ))}
+          {provided.placeholder}
+          <ActionButton boardId={boardId} listId={list.listId} />
         </div>
-      ))}
-
-      <ActionButton boardId={boardId} listId={list.listId} />
-    </div>
+      )}
+    </Droppable>
   );
 };
 
