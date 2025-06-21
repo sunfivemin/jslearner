@@ -2,12 +2,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import { boardsReducer } from './slices/boardsSlice';
 import { loggerReducer } from './slices/loggerSlice';
 import { modalReducer } from './slices/modalSlice';
+import { userReducer } from './slices/userSilce';
 
 export const store = configureStore({
   reducer: {
     boards: boardsReducer,
     logger: loggerReducer,
     modal: modalReducer,
+    user: userReducer,
   },
   devTools: process.env.NODE_ENV !== 'production', // 개발 모드에서만 DevTools 활성화
 });

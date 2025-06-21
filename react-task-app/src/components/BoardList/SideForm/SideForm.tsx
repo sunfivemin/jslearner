@@ -1,27 +1,26 @@
-// src/components/BoardList/SideForm/SideForm.tsx
-
 import React, { useEffect, useRef, useState, type ChangeEvent } from 'react';
 import { FiCheck } from 'react-icons/fi';
 import { useDispatch } from 'react-redux';
-import { addBoard } from '../../../store/slices/boardsSlice'; // 경로 주의
+import { addBoard } from '../../../store/slices/boardsSlice';
 import { v4 as uuidv4 } from 'uuid';
 
 type TSideFormProps = {
   setIsFormOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  inputRef: React.RefObject<HTMLInputElement>;
 };
 
 const SideForm: React.FC<TSideFormProps> = ({ setIsFormOpen }) => {
   const [inputText, setInputText] = useState('');
   const wrapperRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const dispatch = useDispatch(); // ✅ Redux dispatch 사용
+  const dispatch = useDispatch();
 
   // input에 포커스
   useEffect(() => {
     setTimeout(() => {
       inputRef.current?.focus();
     }, 0);
-  }, []);
+  }, [inputRef]);
 
   // 외부 클릭 시 폼 닫기
   useEffect(() => {
