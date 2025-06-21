@@ -1,0 +1,28 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.characters {
+  list-style: none;
+  padding: 0;
+  width: 320px;
+  margin: 0 auto;
+}
+
+.characters li {
+  margin-bottom: 8px;
+  padding: 16px;
+  background-color: #e0e0e0;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  user-select: none;
+}
